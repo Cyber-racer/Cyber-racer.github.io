@@ -1,57 +1,80 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.5">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
+  <meta charset="UTF-8">
+  <title>Перемещения учителей по Москве</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet: фоновая карта -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- D3.js -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; }
+    #map { width: 100%; height: 100%; }
+    svg { position: absolute; top: 0; left: 0; }
+    .arc { fill: none; stroke: steelblue; stroke-width: 2; opacity: 0.8; }
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8" /&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;Мини-карта&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- Leaflet стили --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>html, body { height: 100%; margin: 0; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>#map { width: 100%; height: 100%; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;div id="map"&gt;&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;!-- Leaflet скрипт --&gt;</span></p>
-<p class="p1"><span class="s1">&lt;script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"&gt;&lt;/script&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// Центр Москвы</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const map = L.map('map').setView([55.7558, 37.6173], 12);</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// Подключаем карту OpenStreetMap</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>attribution: '&amp;copy; OpenStreetMap contributors'</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}).addTo(map);</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// Пример перемещения — линия из точки А в точку B</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const from = [55.7558, 37.6173]; // Красная площадь</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const to = [55.7600, 37.6250]; <span class="Apple-converted-space">  </span>// Арбат</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>L.polyline([from, to], { color: 'blue' }).addTo(map)</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.bindPopup('Перемещение учителя');</span></p>
-<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+
+<div id="map"></div>
+
+<script>
+  // Инициализация карты Москвы
+  const map = L.map('map').setView([55.7558, 37.6173], 12);
+
+  // Добавим слой карты OpenStreetMap
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // SVG-слой поверх карты
+  const svg = d3.select(map.getPanes().overlayPane).append("svg");
+  const g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+  // Пример перемещений
+  const movements = [
+    { from: [55.7558, 37.6173], to: [55.7600, 37.6250] },
+    { from: [55.7512, 37.6184], to: [55.7400, 37.6250] },
+    { from: [55.7700, 37.6100], to: [55.7558, 37.6173] },
+  ];
+
+  function projectPoint(lat, lng) {
+    return map.latLngToLayerPoint(new L.LatLng(lat, lng));
+  }
+
+  function drawArcs() {
+    const bounds = map.getBounds();
+    const topLeft = map.latLngToLayerPoint(bounds.getNorthWest());
+    const bottomRight = map.latLngToLayerPoint(bounds.getSouthEast());
+
+    svg.attr("width", bottomRight.x - topLeft.x)
+       .attr("height", bottomRight.y - topLeft.y)
+       .style("left", topLeft.x + "px")
+       .style("top", topLeft.y + "px");
+
+    g.attr("transform", `translate(${-topLeft.x},${-topLeft.y})`);
+
+    const arcs = g.selectAll("path")
+      .data(movements)
+      .join("path")
+      .attr("class", "arc")
+      .attr("d", d => {
+        const p1 = projectPoint(...d.from);
+        const p2 = projectPoint(...d.to);
+        const mx = (p1.x + p2.x) / 2;
+        const my = (p1.y + p2.y) / 2 - 30; // поднимаем для кривизны
+        return `M${p1.x},${p1.y} Q${mx},${my} ${p2.x},${p2.y}`;
+      });
+  }
+
+  map.on("moveend", drawArcs);
+  drawArcs();
+</script>
+
 </body>
 </html>
